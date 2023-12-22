@@ -55,7 +55,7 @@ exports.signin = async (req, res) => {
     );
 
     if (!comparePassword) {
-      return handleResponse({
+      return handleError({
         res,
         message: "Password is incorrect",
       });
@@ -69,14 +69,16 @@ exports.signin = async (req, res) => {
     const token = generateToken(tokenData);
 
     // Set the token in a cookie with a 10-minute expiration
-
     console.log("Generated Token:", token);
     console.log("User Data Stored in Token:", tokenData);
-    res.cookie("token", token, { maxAge: 10 * 60 * 1000, httpOnly: true });
 
+    // Include the token and tokenData in the API response
     return handleResponse({
       res,
-      token: token,
+      data: {
+        token,
+        tokenData,
+      },
       message: "User Login Successfully",
     });
   } catch (error) {
@@ -147,6 +149,25 @@ exports.getDetailsById = async (req, res) => {
       message: "User with ID not found",
     });
   } catch (error) {
+    return handleError({ res, error });
+  }
+};
+
+/** verify user */
+exports.verifyUser = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    if (!token || !token.startsWith("Bearer ")) {
+      return res
+        .status(401)
+        .json({ error: "Unauthorized: No Bearer token provided" });
+    }
+    // Extract the token from the Authorization header
+    const tokenValue = token.split(" ")[1];
+    // Use the verifyToken middleware
+    verifyToken(tokenValue, req, res);
+  } catch (error) {
+    console.error(error);
     return handleError({ res, error });
   }
 };

@@ -1,0 +1,16 @@
+.loginLabel{
+    margin-left: 5px;
+}
+.error-message{
+    margin: top 5px;
+    color: red;
+}
+
+.signup {
+    margin-top: 80px;
+    padding: 3px;
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    align-items: center;
+}
