@@ -9,3 +9,9 @@ export const verifyUser = base_url + "users/verifyToken";
 export const getTodoListByUserId = base_url + "todo/getTodoListByUserId";
 
 export const addTodo = base_url + "todo/addItem";
+
+export const updateTodo = base_url + "todo/updateTodoListItemByItemId";
+
+export const deleteTodo = base_url + "todo/deleteItem";
+
+export const statusUpdateItem = base_url + "todo/statusUpdateItem";

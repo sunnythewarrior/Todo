@@ -170,3 +170,31 @@ exports.deleteTodoListItemByItemId = async (req, res) => {
     return handleError({ res, error });
   }
 };
+
+exports.statusUpdateItem = async (req, res) => {
+  try {
+    const todoItemId = req.params.id;
+
+    const result = await Todo.updateOne(
+      { "todo._id": todoItemId },
+      { $set: { "todo.$.completed": true } } // Set completed to true or false based on your requirement
+    );
+
+    if (!result) {
+      return handleResponse({
+        res,
+        data: null,
+        message: "No Item found with this ID",
+      });
+    }
+
+    return handleResponse({
+      res,
+      data: result,
+      message: "Todo Item Status Updated",
+    });
+  } catch (error) {
+    console.log("error", error);
+    return handleError({ res, error });
+  }
+};

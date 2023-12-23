@@ -14,3 +14,10 @@
     width: 600px;
     align-items: center;
 }
+
+.completed-item {
+    background-color: #e6ffe6;
+    /* Light green background for completed items */
+    border-left: 4px solid #4caf50;
+    /* Green border for completed items */
+}
