@@ -17,7 +17,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import UpdateIcon from "@mui/icons-material/Update"; // Import the UpdateIcon
 import Cookies from "js-cookie";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-
+import Tooltip from "@mui/material/Tooltip";
+import CancelIcon from "@mui/icons-material/Cancel";
 import {
   getTodoListByUserId,
   addTodo,
@@ -187,7 +188,11 @@ const Home = () => {
               </Typography>
               <Button
                 variant="contained"
-                style={{ backgroundColor: "#ead1dc" }}
+                style={{
+                  backgroundColor: "#ead1dc",
+                  color: "maroon",
+                  marginTop: "-15px",
+                }}
                 onClick={handleLogout}
               >
                 Logout
@@ -248,31 +253,52 @@ const Home = () => {
                       </div>
                       <div>
                         {editItemId === item._id ? (
-                          <IconButton
-                            onClick={() => handleUpdateClick(item._id)}
-                          >
-                            <UpdateIcon style={{ color: "green" }} />
-                          </IconButton>
+                          <>
+                            <IconButton
+                              onClick={() => handleUpdateClick(item._id)}
+                            >
+                              <Tooltip title="Update">
+                                <UpdateIcon style={{ color: "green" }} />
+                              </Tooltip>
+                            </IconButton>
+                            <IconButton onClick={() => setEditItemId(null)}>
+                              <Tooltip title="Cancel">
+                                <CancelIcon style={{ color: "maroon" }} />
+                              </Tooltip>
+                            </IconButton>
+                          </>
                         ) : (
                           <>
                             <IconButton
                               onClick={() => handleEditClick(item._id)}
                             >
-                              <EditIcon style={{ color: "navy" }} />
+                              <Tooltip title="Edit">
+                                <EditIcon style={{ color: "navy" }} />
+                              </Tooltip>
                             </IconButton>
                             <IconButton
                               onClick={() => handleDeleteClick(item._id)}
                             >
-                              <DeleteIcon style={{ color: "maroon" }} />
+                              <Tooltip title="Delete">
+                                <DeleteIcon style={{ color: "maroon" }} />
+                              </Tooltip>
                             </IconButton>
                             <IconButton
                               onClick={() => handleStatusUpdateClick(item._id)}
                             >
-                              <CheckCircleIcon
-                                style={{
-                                  color: item?.completed ? "green" : "gray",
-                                }}
-                              />
+                              <Tooltip
+                                title={
+                                  item?.completed
+                                    ? "Mark as Incomplete"
+                                    : "Mark as Complete"
+                                }
+                              >
+                                <CheckCircleIcon
+                                  style={{
+                                    color: item?.completed ? "green" : "gray",
+                                  }}
+                                />
+                              </Tooltip>
                             </IconButton>
                           </>
                         )}
@@ -317,6 +343,7 @@ const Home = () => {
               </Grid>
             </Grid>
             <Button variant="contained" onClick={addTodoHandler}>
+              <AddIcon />
               Add
             </Button>
           </CardContent>

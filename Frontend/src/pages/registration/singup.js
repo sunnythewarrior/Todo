@@ -82,6 +82,7 @@ const Signup = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={handleSignup}
+          validateOnMount // Add validateOnMount to trigger validation on mount
         >
           <Form>
             <Grid container spacing={2}>
@@ -96,13 +97,11 @@ const Signup = () => {
                   autoComplete="fname"
                   autoFocus
                 />
-                <Grid item xs={12} className="error-message-container">
-                  <ErrorMessage
-                    name="firstName"
-                    component="div"
-                    className="error-message"
-                  />
-                </Grid>
+                <ErrorMessage
+                  name="firstName"
+                  component="div"
+                  className="error-message"
+                />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Field
@@ -114,13 +113,11 @@ const Signup = () => {
                   name="lastName"
                   autoComplete="lname"
                 />
-                <Grid item xs={12} className="error-message-container">
-                  <ErrorMessage
-                    name="lastName"
-                    component="div"
-                    className="error-message"
-                  />
-                </Grid>
+                <ErrorMessage
+                  name="lastName"
+                  component="div"
+                  className="error-message"
+                />
               </Grid>
               <Grid item xs={12}>
                 <Field
@@ -132,13 +129,11 @@ const Signup = () => {
                   name="email"
                   autoComplete="email"
                 />
-                <Grid item xs={12} className="error-message-container">
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="error-message"
-                  />
-                </Grid>
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="error-message"
+                />
               </Grid>
               <Grid item xs={12}>
                 <Field
@@ -150,13 +145,11 @@ const Signup = () => {
                   name="mobileNumber"
                   autoComplete="mobile"
                 />
-                <Grid item xs={12} className="error-message-container">
-                  <ErrorMessage
-                    name="mobileNumber"
-                    component="div"
-                    className="error-message"
-                  />
-                </Grid>
+                <ErrorMessage
+                  name="mobileNumber"
+                  component="div"
+                  className="error-message"
+                />
               </Grid>
               <Grid item xs={12}>
                 <Field
@@ -181,13 +174,11 @@ const Signup = () => {
                     ),
                   }}
                 />
-                <Grid item xs={12} className="error-message-container">
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className="error-message"
-                  />
-                </Grid>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
               </Grid>
             </Grid>
             <Button

@@ -31,8 +31,8 @@ const Login = () => {
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email format")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+      .required("Email is Required"),
+    password: Yup.string().required("Password is Required"),
   });
 
   const [disableButton, setDisableButton] = useState(false);
@@ -49,7 +49,6 @@ const Login = () => {
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
       const res = await axios.post(signin, values);
-      console.log("response", res);
 
       if (res?.data?.success === false) {
         toast.error(res?.data?.message);
@@ -58,7 +57,7 @@ const Login = () => {
 
       if (res?.data?.success === true) {
         toast.success(res?.data?.message);
-        console.log("res?.data", res?.data?.data);
+
         setDisableButton(false);
 
         // Store the token and tokenData in cookies with a 30-minute expiration
@@ -133,15 +132,25 @@ const Login = () => {
           Forgot password?
         </Link>
       </Box>
-      <Button
-        className="signupbutton"
-        type="submit"
-        fullWidth
-        sx={{ mt: 3, mb: 2 }}
-        disabled={disableButton}
+      <div
+        style={{
+          width: "100%",
+          boxSizing: "border-box",
+          padding: "16px", // Adjust the padding as needed
+        }}
+        onClick={() => {
+          // Your sign-in logic here
+        }}
       >
-        {disableButton === true ? "Processing..." : "Sign In"}
-      </Button>
+        <Button
+          className="signupbutton"
+          type="submit"
+          fullWidth
+          disabled={disableButton}
+        >
+          {disableButton === true ? "Processing..." : "Sign In"}
+        </Button>
+      </div>
       <Box display="flex" justifyContent="center" alignItems="center">
         <Typography color="#929495">
           {" "}
