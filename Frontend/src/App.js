@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import axios from "axios";
 import Login from "./pages/login/login";
 import Home from "./pages/components/Home";
+import ForgotPassword from "./pages/login/forgotPassword";
 import Signup from "./pages/registration/singup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -50,6 +51,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+
       <Route
         path="/home"
         element={isAuthenticated ? <Home /> : <Navigate to="/" />}

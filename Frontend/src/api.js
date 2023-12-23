@@ -4,6 +4,8 @@ export const signin = base_url + "users/signin";
 
 export const signup = base_url + "users/signup";
 
+export const forgotPassword = base_url + "users/forgotpassword";
+
 export const verifyUser = base_url + "users/verifyToken";
 
 export const getTodoListByUserId = base_url + "todo/getTodoListByUserId";

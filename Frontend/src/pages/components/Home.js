@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -7,6 +8,7 @@ import {
   ListItem,
   IconButton,
   Button,
+  Box,
 } from "@mui/material";
 import { Grid, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -30,6 +32,7 @@ import withReactContent from "sweetalert2-react-content";
 const MySwal = withReactContent(Swal);
 
 const Home = () => {
+  const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [listData, setListData] = useState([]);
   const [newTodo, setNewTodo] = useState({ title: "", description: "" });
@@ -53,6 +56,13 @@ const Home = () => {
   useEffect(() => {
     getData();
   }, [userId]);
+
+  const handleLogout = () => {
+    // Perform logout actions, e.g., delete token and user ID from cookies
+    Cookies.remove("tokenData");
+    Cookies.remove("token");
+    navigate("/");
+  };
 
   const addTodoHandler = async () => {
     try {
@@ -167,9 +177,22 @@ const Home = () => {
           }}
         >
           <CardContent>
-            <Typography variant="h4" gutterBottom>
-              Today's My Todo
-            </Typography>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h4" gutterBottom>
+                Today's My Todo
+              </Typography>
+              <Button
+                variant="contained"
+                style={{ backgroundColor: "#ead1dc" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </Box>
 
             <List>
               {listData !== undefined && listData !== null

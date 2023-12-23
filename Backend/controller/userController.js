@@ -10,6 +10,7 @@ const {
   generatePassword,
   comparePasswords,
 } = require("../middlewares/generatePassword");
+const users = require("../models/users");
 
 /** user signup api */
 
@@ -166,6 +167,46 @@ exports.verifyUser = async (req, res) => {
     const tokenValue = token.split(" ")[1];
     // Use the verifyToken middleware
     verifyToken(tokenValue, req, res);
+  } catch (error) {
+    console.error(error);
+    return handleError({ res, error });
+  }
+};
+
+/** Update User Password */
+exports.updatePassword = async (req, res) => {
+  try {
+    let body = req.body;
+
+    // Step 1: Find the user by email
+    let findCheck = await User.findOne({ email: body.email });
+
+    if (findCheck) {
+      const id = findCheck._id;
+
+      // Step 2: Generate hashed password using bcrypt
+      body.newPassword = await generatePassword(body.newPassword);
+
+      // Step 3: Update the user password
+      let updateDetails = await User.findByIdAndUpdate(
+        id,
+        { password: body.newPassword },
+        { new: true }
+      );
+
+      // Step 4: Respond with a success message and updated user details
+      return handleResponse({
+        res,
+        data: updateDetails,
+        message: "Password Updated Successfully",
+      });
+    }
+
+    // Step 5: Respond if no user found with the provided email
+    return handleResponse({
+      res,
+      message: "No User Found with this Email Id",
+    });
   } catch (error) {
     console.error(error);
     return handleError({ res, error });
