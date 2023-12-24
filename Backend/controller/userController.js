@@ -70,8 +70,6 @@ exports.signin = async (req, res) => {
     const token = generateToken(tokenData);
 
     // Set the token in a cookie with a 10-minute expiration
-    console.log("Generated Token:", token);
-    console.log("User Data Stored in Token:", tokenData);
 
     // Include the token and tokenData in the API response
     return handleResponse({
@@ -106,7 +104,6 @@ exports.updateUser = async (req, res) => {
       message: "User with ID not found",
     });
   } catch (error) {
-    console.log("error", error);
     return handleError({ res, error });
   }
 };
